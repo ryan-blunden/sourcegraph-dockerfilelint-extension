@@ -6,3 +6,5 @@ node_modules/
 .python_history
 .editorconfig
 Pipfile
+.vscode
+__pycache__

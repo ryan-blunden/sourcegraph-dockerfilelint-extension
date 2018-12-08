@@ -10,6 +10,7 @@ ARG HOME=/usr/src/app
 ENV HOME=${HOME}
 ENV FLASK_APP=app.py
 
+WORKDIR /usr/src/app
 
 RUN chown ${UID}:${GID} $HOME \
   && groupadd -g ${GID} ${GROUP} \
@@ -22,7 +23,7 @@ RUN apt-get update && \
 
 RUN wget https://github.com/hadolint/hadolint/releases/download/v1.15.0/hadolint-Linux-x86_64 -O /usr/local/bin/hadolint && chmod +x /usr/local/bin/hadolint
 
-ADD requirements.txt .
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 USER ${UID}:${GID}

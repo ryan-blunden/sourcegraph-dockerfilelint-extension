@@ -2,6 +2,7 @@ import re
 from subprocess import run, PIPE
 
 from flask import Flask, render_template, jsonify, request
+from flask_cors import CORS
 
 
 class DockerfileLintProcess:
@@ -21,8 +22,8 @@ class DockerfileLintProcess:
             try:
                 line_number, message = regex.search(line).groups()
                 results.append({
-                    'lineNumber': line_number,
-                    'message': message
+                    'line': int(line_number),
+                    'lint': message
                 })
             except AttributeError:
                 pass
@@ -30,21 +31,23 @@ class DockerfileLintProcess:
         return results
 
     def _validate(self):
-        process = run(['hadolint', '-'], input=request.data.decode('utf-8'), stdout=PIPE, universal_newlines=True)
+        process = run(['hadolint', '-'], input=request.data.decode('utf-8'),
+                      stdout=PIPE, universal_newlines=True)
         self.results = {
-            'status': 'clean' if process.returncode == 0 else 'linty',
+            'clean': True if process.returncode == 0 else False,
             'lint': self._get_lint_results(process.stdout)
         }
 
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
 
     @app.route('/')
     def index():
         return render_template('index.html')
 
-    @app.route('/lint', methods=['POST'])
+    @app.route('/lint', methods=['POST', 'OPTIONS'])
     def lint():
         return jsonify(DockerfileLintProcess(dockerfile=request.data).results)
 
@@ -57,4 +60,5 @@ def create_app():
 
 if __name__ == '__main__':
     app = create_app()
+    logging.getLogger('flask_cors').level = logging.DEBUG
     app.run()
