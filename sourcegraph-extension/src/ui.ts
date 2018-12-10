@@ -33,17 +33,17 @@ export function decorate(result: LintResult): void {
 }
 
 export function getHover(dockerfile: string, position: Position, result: LintResult): Hover | null {
-    debugger;
+    const lineNumber = position.line + 1
     const content = (lint: Lint[]): string =>
         ['# Dockerfile lint recommendations\n---\n'].concat(lint.map(lint => lint.lint)).join('\n- \n')
 
-    if(!result || !result.lintForLine[position.line+1]) {
+    if(!result || !result.lintForLine[lineNumber]) {
         return null
     }
 
     const lint = result.lintForLine[position.line+1]
-    const lineCharCount = dockerfile.split('\n')[position.line+1].length - 1
-    const range = new Range(position.line+1, 0, position.line+1, lineCharCount)
+    const lineCharCount = dockerfile.split('\n')[position.line].length - 1
+    const range = new Range(position.line, 0, position.line, lineCharCount)
 
     return {
         contents: {
