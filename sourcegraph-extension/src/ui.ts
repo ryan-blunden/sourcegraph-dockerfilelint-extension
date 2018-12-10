@@ -48,7 +48,7 @@ export function getHover(dockerfile: string, position: Position, result: LintRes
     return {
         contents: {
             value: content(lint),
-            kind: MarkupKind.Markdown // bug
+            kind: MarkupKind.Markdown
         },
         range
     }
