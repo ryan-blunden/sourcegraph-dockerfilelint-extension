@@ -8,3 +8,7 @@ node_modules/
 Pipfile
 .vscode
 __pycache__
+terraform.tfvars
+.terraform
+terraform.tfstate*
+terraform.tfvars
