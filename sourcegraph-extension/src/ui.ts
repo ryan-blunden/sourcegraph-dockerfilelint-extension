@@ -31,43 +31,9 @@ export function decorate(result: LintResult): void {
 
     editor.setDecorations(null, getDecorations(result))
 }
-            // )
-        //     if(!lint.line in linesDecorated) {
-        //         linesDecorated.push(lint)
-        //         return true
-        //     }
-        //     return false
-        // })
-        // .map((lint) => {
-        //     range: new Range(lint.line - 1, 0, lint.line - 1, lint.lint.length - 1), // -1 because lines are 0 indexed
-        //     border: 'solid',
-        //     borderWidth: '0 0 0 10px',
-        //     borderColor: 'red',
-        //     backgroundColor,
-        //     after: {
-        //         contentText: '❗'
-        //     }
-        // })
-    // })()
-//     let decorations: TextDocumentDecoration[] = []
-//     console.log(decorations)
-//     // editor.setDecorations(null, decorations)
-//     for(const lint of result.lint) {
-//         const decorations: TextDocumentDecoration[] = result.lint.filter(lint => ({
-//         range: new Range(lint.line - 1, 0, lint.line - 1, lint.lint.length - 1), // -1 because lines are 0 indexed
-//         border: 'solid',
-//         borderWidth: '0 0 0 10px',
-//         borderColor: 'red',
-//         backgroundColor,
-//         after: {
-//             contentText: '❗'
-//         }
-//     }))
-
-//     editor.setDecorations(null, decorations)
-// }
 
 export function getHover(dockerfile: string, position: Position, result: LintResult): Hover | null {
+    debugger;
     const content = (lint: Lint[]): string =>
         ['# Dockerfile lint recommendations\n---\n'].concat(lint.map(lint => lint.lint)).join('\n- \n')
 

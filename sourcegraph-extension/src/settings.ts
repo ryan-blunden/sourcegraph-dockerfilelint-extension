@@ -54,7 +54,7 @@ export async function setServerURL(): Promise<void | null> {
     }
 
     const url = urlWithOnlyProtocolAndHost(serverURLRawValue)
-    await configuration.get<Settings>().update('dockerfilelint.serverURL', `${url}/lint`)
+    await configuration.get<Settings>().update('dockerfilelint.serverURL', url)
 }
 
 function urlWithOnlyProtocolAndHost(urlStr: string): string {

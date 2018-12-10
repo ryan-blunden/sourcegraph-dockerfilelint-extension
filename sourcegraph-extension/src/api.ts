@@ -13,7 +13,7 @@ export interface  LintResult {
 
 export const fetchResult = memoizeAsync(
     async function fetchResult(dockerfile: string):Promise<LintResult | undefined> {
-        const url = configuration.get<Settings>().get('dockerfilelint.serverURL')
+        const url = configuration.get<Settings>().get('dockerfilelint.serverURL') + '/lint'
         if(!url) {
             console.debug('dockerfilelint: Aborting lint request, server is undefined')
             return undefined
