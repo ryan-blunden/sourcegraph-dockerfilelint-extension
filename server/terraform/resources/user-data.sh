@@ -7,4 +7,4 @@ amazon-linux-extras install -y docker
 
 service docker start
 
-docker container run --rm --restart unless-stopped -p 5000:5000 docker pull ryanblunden/dockerfilelintserver:latest
+docker container run -d --restart unless-stopped -p 80:5000 -p 443:5000 ryanblunden/dockerfilelintserver:latest
